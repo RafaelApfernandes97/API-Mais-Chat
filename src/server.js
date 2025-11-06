@@ -33,51 +33,6 @@ app.use(limiter);
 // Rotas
 app.use('/api/v1', messageRoutes);
 
-// Rota raiz - informações da API
-app.get('/', (req, res) => {
-  res.json({
-    success: true,
-    message: 'API Mais Chat Wrapper',
-    version: '1.0.0',
-    description: 'API simplificada para envio de mensagens via Mais Chat sem exposição de credenciais',
-    endpoints: {
-      health: 'GET /api/v1/health',
-      listTemplates: 'GET /api/v1/templates',
-      sendTemplate: 'POST /api/v1/send-template'
-    },
-    documentation: {
-      authentication: 'Bearer token (tenant token) no header Authorization',
-      sendTemplate: {
-        method: 'POST',
-        endpoint: '/api/v1/send-template',
-        headers: {
-          'Authorization': 'bearer {TENANT_TOKEN}',
-          'Content-Type': 'application/json'
-        },
-        body: {
-          source: '5511986879746',
-          destination: '5511911761633',
-          template: {
-            name: 'nome_do_template',
-            language: 'pt_BR',
-            components: [
-              {
-                type: 'body',
-                parameters: [
-                  {
-                    type: 'text',
-                    text: 'valor_do_parametro'
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      }
-    }
-  });
-});
-
 // Middleware de erro 404
 app.use((req, res) => {
   res.status(404).json({
@@ -115,7 +70,6 @@ app.listen(PORT, HOST, () => {
 ║                                                           ║
 ║  Endpoints Disponíveis:                                  ║
 ║                                                           ║
-║  • GET  /                       - Documentação            ║
 ║  • GET  /api/v1/health          - Health check            ║
 ║  • GET  /api/v1/templates       - Listar templates        ║
 ║  • POST /api/v1/send-template   - Enviar mensagem         ║
