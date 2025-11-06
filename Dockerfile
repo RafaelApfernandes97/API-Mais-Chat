@@ -23,15 +23,16 @@ RUN addgroup -g 1001 -S nodejs && \
 USER nodejs
 
 # Expõe a porta que a aplicação irá utilizar
-EXPOSE 3000
+EXPOSE 3001
 
 # Define variáveis de ambiente padrão
 ENV NODE_ENV=production \
-    PORT=3000
+    PORT=3001 \
+    HOST=0.0.0.0
 
 # Health check para verificar se a aplicação está rodando
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD node -e "require('http').get('http://localhost:3000/api/v1/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+    CMD node -e "require('http').get('http://localhost:3001/api/v1/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
 # Comando para iniciar a aplicação
 CMD ["node", "src/server.js"]
