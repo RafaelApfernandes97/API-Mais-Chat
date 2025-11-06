@@ -1,0 +1,119 @@
+// API BROKERS para consultar broker e ter os dados do canal para envio
+
+curl --location 'https://apimaischat.maischat.io/v2//msg/brokers' \
+--header 'authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnQiOiI2OGJmMmY3OTg2MzU1OWEyZWY1MWQwYWQiLCJuYW1lIjoiQmFsbGV0IGVtIEZvY28iLCJjbnBqIjoiNTk0MjEwNzQwMDAxNDQiLCJpYXQiOjE3NTczNTk5OTN9.RJNHb0yXH-LTvfoikhjLZkAfPdKCJiVtoXqoKzVEnNk' \
+--header 'Content-Type: application/json'
+
+// Retorno
+{
+    "status": true,
+    "data": [
+        {
+            "version": null,
+            "_id": "68bf8af2b166d1257ff2cfe2",
+            "broker": "wppCloudAPI",
+            "name": "Vendas",
+            "app": "Ballet em Foco",
+            "appId": "700633136476625",
+            "number": "5511986879746",
+            "wabaId": "1157308262932089",
+            "token": "EAAD0ZA7Q5UxUBPVZCmYZB9N9tSNaJ6nnkl8CHskLK8HxBRWdgoElB9fLQay2F9QSCIDHgM9yWPmsJE0jokRWUqXjBFxO7hwOee85o6j9BQM9okjQXJL6HeGIkBEcGnoIowSuNk3iXpY2ZBnDhiRv9WpeJxkJiv4q72i54pKUIiJPAz668ID4vdhvbtvjaXh4WhKbPsqj5zPnr5aBCHtYzMxVjSZBZAISCOP8ZBnK50jwSsrXbPxCJCfdcrG3YQb"
+        }
+    ]
+}
+
+
+// _________________________________________________
+// API TEMPLATES para consultar templates cadastrados no broker
+
+curl --location 'https://apimaischat.maischat.io/v2/msg/template/wppCloudAPI?appId=272327249302592' \
+--header 'authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnQiOiI2OGJmMmY3OTg2MzU1OWEyZWY1MWQwYWQiLCJuYW1lIjoiQmFsbGV0IGVtIEZvY28iLCJjbnBqIjoiNTk0MjEwNzQwMDAxNDQiLCJpYXQiOjE3NTczNTk5OTN9.RJNHb0yXH-LTvfoikhjLZkAfPdKCJiVtoXqoKzVEnNk' \
+--header 'Content-Type: application/json'
+
+// Observer que o appID é o mesmo do broker retornado na API anterior. 
+// Retorno
+{
+    "status": true,
+    "data": [
+        {
+            "name": "maio_julho_20porcent_vendas",
+            "parameter_format": "POSITIONAL",
+            "components": [
+                {
+                    "type": "BODY",
+                    "text": "💚 Desconto especial pra você voltar a se cuidar!\n\nAproveite *20% OFF* pra renovar suas fórmulas ou recomeçar seu cuidado com a Harmonize. 💊✨\n\n👉 *_Clique no botão e aproveite_* só pelas próximas 24 horas:"
+                },
+                {
+                    "type": "FOOTER",
+                    "text": "Válido para compras acima de R$75."
+                },
+                {
+                    "type": "BUTTONS",
+                    "buttons": [
+                        {
+                            "type": "QUICK_REPLY",
+                            "text": "QUERO DESCONTO"
+                        },
+                        {
+                            "type": "QUICK_REPLY",
+                            "text": "Não tenho interesse"
+                        }
+                    ]
+                }
+            ],
+            "language": "pt_BR",
+            "status": "APPROVED",
+            "category": "MARKETING",
+            "sub_category": "CUSTOM",
+            "id": "1131339345851971"
+        }
+    ]
+}
+
+// _________________________________________________    
+// API SEND MESSAGE para enviar mensagem utilizando o broker e template consultados
+curl --location 'https://apimaischat.maischat.io/v2//msg/template/wppCloudAPI' \
+--header 'authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnQiOiI2OGJmMmY3OTg2MzU1OWEyZWY1MWQwYWQiLCJuYW1lIjoiQmFsbGV0IGVtIEZvY28iLCJjbnBqIjoiNTk0MjEwNzQwMDAxNDQiLCJpYXQiOjE3NTczNTk5OTN9.RJNHb0yXH-LTvfoikhjLZkAfPdKCJiVtoXqoKzVEnNk' \
+--header 'Content-Type: application/json' \
+--data '{
+    "type": "apiTemplate",
+    "broker": "wppCloudAPI",
+    "appId": "700633136476625",
+    "source": "5511986879746",
+    "destination": "5511911761633",
+    "token": "EAAD0ZA7Q5UxUBPVZCmYZB9N9tSNaJ6nnkl8CHskLK8HxBRWdgoElB9fLQay2F9QSCIDHgM9yWPmsJE0jokRWUqXjBFxO7hwOee85o6j9BQM9okjQXJL6HeGIkBEcGnoIowSuNk3iXpY2ZBnDhiRv9WpeJxkJiv4q72i54pKUIiJPAz668ID4vdhvbtvjaXh4WhKbPsqj5zPnr5aBCHtYzMxVjSZBZAISCOP8ZBnK50jwSsrXbPxCJCfdcrG3YQb",
+    "template": {
+        "name": "redefinicao_senha",
+        "language": "pt_BR",
+        "components": [
+            {
+                "type": "body",
+                "parameters": [
+                    {
+                        "type": "text",
+                        "text": "123456"
+                    }
+                ]
+            },
+            {
+                "type": "button",
+                "sub_type": "url",
+                "index": "0",
+                "parameters": [
+                    {
+                        "type": "text",
+                        "text": "123456" 
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+
+// Observe que os dados para envio da mensagem (appId, source number, token) são os mesmos retornados na consulta do broker.
+// Retorno
+{
+    "status": true,
+    "messageId": "wamid.HBgMNTUxMTk4Njg3OTc0NjUQABIYDzIwMjQtMDYtMDYgMTE6NTc6MTcgKzAxOjAwKgA="
+}
