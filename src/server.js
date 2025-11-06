@@ -7,6 +7,7 @@ const messageRoutes = require('./routes/messageRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || '0.0.0.0';
 
 // Middlewares de segurança
 app.use(helmet());
@@ -97,7 +98,7 @@ app.use((err, req, res, next) => {
 });
 
 // Inicia o servidor
-app.listen(PORT, () => {
+app.listen(PORT, HOST, () => {
   console.log(`
 ╔═══════════════════════════════════════════════════════════╗
 ║                                                           ║
@@ -106,8 +107,9 @@ app.listen(PORT, () => {
 ╠═══════════════════════════════════════════════════════════╣
 ║                                                           ║
 ║  Porta: ${PORT.toString().padEnd(50)} ║
+║  Host: ${HOST.padEnd(51)} ║
 ║  Ambiente: ${(process.env.NODE_ENV || 'development').padEnd(46)} ║
-║  URL Base: http://localhost:${PORT.toString().padEnd(30)} ║
+║  URL Local: http://localhost:${PORT.toString().padEnd(29)} ║
 ║                                                           ║
 ╠═══════════════════════════════════════════════════════════╣
 ║                                                           ║
