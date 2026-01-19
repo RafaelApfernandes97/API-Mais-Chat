@@ -4,10 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const messageRoutes = require('./routes/messageRoutes');
-<<<<<<< HEAD
 const maisChatService = require('./services/maisChatService');
-=======
->>>>>>> 466e8ea1c1e35fdfb6cd3818c2e3f6c38b9c7c14
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -57,14 +54,10 @@ app.use((err, req, res, next) => {
 });
 
 // Inicia o servidor
-<<<<<<< HEAD
 app.listen(PORT, HOST, async () => {
   const redisStatus = await maisChatService.getRedisStatus();
   const redisLabel = redisStatus.ok ? 'OK' : 'OFF';
   const redisError = redisStatus.error;
-=======
-app.listen(PORT, HOST, () => {
->>>>>>> 466e8ea1c1e35fdfb6cd3818c2e3f6c38b9c7c14
   console.log(`
 ╔═══════════════════════════════════════════════════════════╗
 ║                                                           ║
@@ -74,10 +67,7 @@ app.listen(PORT, HOST, () => {
 ║                                                           ║
 ║  Porta: ${PORT.toString().padEnd(50)} ║
 ║  Host: ${HOST.padEnd(51)} ║
-<<<<<<< HEAD
 ║  Redis: ${redisLabel.padEnd(50)} ║
-=======
->>>>>>> 466e8ea1c1e35fdfb6cd3818c2e3f6c38b9c7c14
 ║  Ambiente: ${(process.env.NODE_ENV || 'development').padEnd(46)} ║
 ║  URL Local: http://localhost:${PORT.toString().padEnd(29)} ║
 ║                                                           ║
@@ -91,12 +81,9 @@ app.listen(PORT, HOST, () => {
 ║                                                           ║
 ╚═══════════════════════════════════════════════════════════╝
   `);
-<<<<<<< HEAD
   if (!redisStatus.ok && redisError) {
     console.log(`Redis error: ${redisError}`);
   }
-=======
->>>>>>> 466e8ea1c1e35fdfb6cd3818c2e3f6c38b9c7c14
 });
 
 module.exports = app;
