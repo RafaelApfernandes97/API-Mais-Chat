@@ -1,4 +1,5 @@
 const axios = require('axios');
+<<<<<<< HEAD
 const { createClient } = require('redis');
 const RequestQueue = require('../utils/requestQueue');
 
@@ -24,6 +25,12 @@ class MaisChatService {
     this.redisRetryTimer = null;
     this.redisConnecting = false;
     this.redisInitPromise = this._initRedis();
+=======
+
+class MaisChatService {
+  constructor() {
+    this.baseUrl = process.env.MAIS_CHAT_API_URL || 'https://apimaischat.maischat.io/v2';
+>>>>>>> 466e8ea1c1e35fdfb6cd3818c2e3f6c38b9c7c14
   }
 
   /**
@@ -33,6 +40,7 @@ class MaisChatService {
    */
   async getBrokerInfo(tenantToken) {
     try {
+<<<<<<< HEAD
       const cached = await this._getBrokerFromCache(tenantToken);
       if (cached) {
         return cached;
@@ -148,10 +156,14 @@ class MaisChatService {
   async _fetchAndCacheBroker(tenantToken) {
     const response = await this.requestQueue.enqueue(tenantToken, () =>
       axios.get(`${this.baseUrl}/msg/brokers`, {
+=======
+      const response = await axios.get(`${this.baseUrl}/msg/brokers`, {
+>>>>>>> 466e8ea1c1e35fdfb6cd3818c2e3f6c38b9c7c14
         headers: {
           'authorization': `bearer ${tenantToken}`,
           'Content-Type': 'application/json'
         }
+<<<<<<< HEAD
       })
     );
 
@@ -185,6 +197,30 @@ class MaisChatService {
   }
 
 
+=======
+      });
+
+      if (!response.data.status || !response.data.data || response.data.data.length === 0) {
+        throw new Error('Nenhum broker encontrado para este tenant');
+      }
+
+      // Retorna o primeiro broker encontrado
+      const broker = response.data.data[0];
+
+      return {
+        broker: broker.broker,
+        appId: broker.appId,
+        token: broker.token,
+        wabaId: broker.wabaId,
+        defaultSource: broker.number
+      };
+    } catch (error) {
+      console.error('Erro ao buscar informações do broker:', error.message);
+      throw new Error(`Falha ao buscar broker: ${error.response?.data?.message || error.message}`);
+    }
+  }
+
+>>>>>>> 466e8ea1c1e35fdfb6cd3818c2e3f6c38b9c7c14
   /**
    * Busca templates disponíveis para o tenant
    * @param {string} tenantToken - Token JWT do tenant
@@ -193,6 +229,7 @@ class MaisChatService {
    */
   async getTemplates(tenantToken, appId) {
     try {
+<<<<<<< HEAD
       const cacheKey = `${tenantToken}:${appId}`;
       const cached = await this._getTemplatesFromCache(cacheKey);
       if (cached) {
@@ -248,6 +285,9 @@ class MaisChatService {
   async _fetchAndCacheTemplates(tenantToken, appId, cacheKey) {
     const response = await this.requestQueue.enqueue(tenantToken, () =>
       axios.get(
+=======
+      const response = await axios.get(
+>>>>>>> 466e8ea1c1e35fdfb6cd3818c2e3f6c38b9c7c14
         `${this.baseUrl}/msg/template/wppCloudAPI?appId=${appId}`,
         {
           headers: {
@@ -255,6 +295,7 @@ class MaisChatService {
             'Content-Type': 'application/json'
           }
         }
+<<<<<<< HEAD
       )
     );
 
@@ -276,6 +317,19 @@ class MaisChatService {
     }
 
     return data;
+=======
+      );
+
+      if (!response.data.status) {
+        throw new Error('Erro ao buscar templates');
+      }
+
+      return response.data.data;
+    } catch (error) {
+      console.error('Erro ao buscar templates:', error.message);
+      throw new Error(`Falha ao buscar templates: ${error.response?.data?.message || error.message}`);
+    }
+>>>>>>> 466e8ea1c1e35fdfb6cd3818c2e3f6c38b9c7c14
   }
 
   /**
@@ -300,6 +354,7 @@ class MaisChatService {
         template: template
       };
 
+<<<<<<< HEAD
       const response = await this.requestQueue.enqueue(tenantToken, () =>
         axios.post(
           `${this.baseUrl}/msg/template/wppCloudAPI`,
@@ -311,6 +366,17 @@ class MaisChatService {
             }
           }
         )
+=======
+      const response = await axios.post(
+        `${this.baseUrl}/msg/template/wppCloudAPI`,
+        payload,
+        {
+          headers: {
+            'authorization': `bearer ${tenantToken}`,
+            'Content-Type': 'application/json'
+          }
+        }
+>>>>>>> 466e8ea1c1e35fdfb6cd3818c2e3f6c38b9c7c14
       );
 
       if (!response.data.status) {

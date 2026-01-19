@@ -1,18 +1,26 @@
 {
   "name": "api-mais-chat-wrapper",
   "version": "1.0.0",
+<<<<<<< HEAD
   "description": "API wrapper para envio de mensagens via Mais Chat sem expor credenciais sens\u00edveis",
+=======
+  "description": "API wrapper para envio de mensagens via Mais Chat sem expor credenciais sensíveis",
+>>>>>>> 466e8ea1c1e35fdfb6cd3818c2e3f6c38b9c7c14
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js"
   },
+<<<<<<< HEAD
   "keywords": [
     "whatsapp",
     "api",
     "mais-chat",
     "messaging"
   ],
+=======
+  "keywords": ["whatsapp", "api", "mais-chat", "messaging"],
+>>>>>>> 466e8ea1c1e35fdfb6cd3818c2e3f6c38b9c7c14
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -22,8 +30,12 @@
     "cors": "^2.8.5",
     "helmet": "^7.1.0",
     "express-rate-limit": "^7.1.5",
+<<<<<<< HEAD
     "jsonwebtoken": "^9.0.2",
     "redis": "^4.6.13"
+=======
+    "jsonwebtoken": "^9.0.2"
+>>>>>>> 466e8ea1c1e35fdfb6cd3818c2e3f6c38b9c7c14
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
